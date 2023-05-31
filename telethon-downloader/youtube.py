@@ -18,7 +18,7 @@ async def youtube_download(url,update,message):
 		url = update.message.message
 		youtube_path = PATH_YOUTUBE
 
-		ydl_opts = { 'format': YOUTUBE_FORMAT, 'outtmpl': f'{youtube_path}/%(title)s.%(ext)s','cachedir':'False',"retries": 10, 'merge_output_format':'mkv' }
+		ydl_opts = { 'format': YOUTUBE_FORMAT, 'outtmpl': f'{youtube_path}/%(title)s [%(id)s].%(ext)s','cachedir':'False',"retries": 10, 'merge_output_format':'mkv' }
 
 		with YoutubeDL(ydl_opts) as ydl:
 			info_dict = ydl.extract_info(url, download=False)
@@ -28,11 +28,11 @@ async def youtube_download(url,update,message):
 				total_downloads = len(info_dict['entries'])
 				#logger.info('info_dict :::::::::::: [{}][{}]'.format(info_dict["_type"],len(info_dict['entries'])))
 				youtube_path = os.path.join(PATH_YOUTUBE,info_dict['uploader'],info_dict['title'])
-				ydl_opts = { 'format': YOUTUBE_FORMAT, 'outtmpl': f'{youtube_path}/%(title)s.%(ext)s','cachedir':'False','ignoreerrors': True, "retries": 10, 'merge_output_format':'mkv' }
+				ydl_opts = { 'format': YOUTUBE_FORMAT, 'outtmpl': f'{youtube_path}/%(title)s [%(id)s].%(ext)s','cachedir':'False','ignoreerrors': True, "retries": 10, 'merge_output_format':'mkv' }
 				ydl_opts.update(ydl_opts)
 			else:
 				youtube_path = os.path.join(PATH_YOUTUBE,info_dict['uploader'])
-				ydl_opts = { 'format': YOUTUBE_FORMAT, 'outtmpl': f'{youtube_path}/%(title)s.%(ext)s','cachedir':'False','ignoreerrors': True, "retries": 10, 'merge_output_format':'mkv' }
+				ydl_opts = { 'format': YOUTUBE_FORMAT, 'outtmpl': f'{youtube_path}/%(title)s [%(id)s].%(ext)s','cachedir':'False','ignoreerrors': True, "retries": 10, 'merge_output_format':'mkv' }
 				ydl_opts.update(ydl_opts)
 		
 		with YoutubeDL(ydl_opts) as ydl:
